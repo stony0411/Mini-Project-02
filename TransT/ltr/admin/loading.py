@@ -99,7 +99,7 @@ def load_network(network_dir=None, checkpoint=None, constructor_fun_name=None, c
     else:
         raise RuntimeError('No constructor for the given network.')
 
-    net.load_state_dict(checkpoint_dict['net'], strict=False)
+    net.load_state_dict(checkpoint_dict['net'])
 
     net.constructor = checkpoint_dict['constructor']
     if 'net_info' in checkpoint_dict and checkpoint_dict['net_info'] is not None:

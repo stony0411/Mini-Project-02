@@ -5,6 +5,10 @@ A general PyTorch based framework for learning tracking representations.
 
 * [Quick Start](#quick-start)
 * [Overview](#overview)
+* [Trackers](#trackers)
+   * [TrDiMP/TrSiam](#TrDiMP)
+   * [ATOM](#ATOM)
+* [Transformer in TrDiMP](#transformer-in-trdimp)
 * [Training your own networks](#training-your-own-networks)
 
 ## Quick Start
@@ -16,9 +20,9 @@ python run_training.py train_module train_name
 ```
 Here, ```train_module``` is the sub-module inside ```train_settings``` and ```train_name``` is the name of the train setting file to be used.
 
-For example, you can train using the included default ATOM settings by running:
+For example, you can train the proposed *TrDiMP/TrSiam* tracker by running:
 ```bash
-python run_training transt transt
+python run_training dimp transformer_dimp
 ```
 
 
@@ -35,6 +39,25 @@ The framework consists of the following sub-modules.
  - [trainers](trainers): The main class which runs the training.  
  - [train_settings](train_settings): Contains settings files, specifying the training of a network.   
  
+## Trackers
+ The framework currently contains the training code for the following trackers.
+
+### TrDiMP
+ The following setting file can be used train the TrDiMP/TrSiam network, or to know the exact training details. 
+ - [dimp.transformer_dimp](train_settings/dimp/transformer_dimp.py): The default settings used for training the TrDiMP/TrSiam model with ResNet-50 backbone. Note that TrSiam can be regarded as the initialization step of TrDiMP. Therefore, we use this trained model to perform both TrDiMP and TrSiam.
+
+ 
+### ATOM
+ The following setting file can be used train the ATOM network, or to know the exact training details. 
+ - [bbreg.atom](train_settings/bbreg/atom_paper.py): The settings used in the paper for training the network in ATOM.
+ - [bbreg.atom](train_settings/bbreg/atom.py): Newer settings used for training the network in ATOM, also utilizing the GOT10k dataset.
+ - [bbreg.atom](train_settings/bbreg/atom_prob_ml.py): Settings for ATOM with the probabilistic bounding box regression proposed in [this paper](https://arxiv.org/abs/1909.12297). 
+ - [bbreg.atom](train_settings/bbreg/atom_paper.py): The baseline ATOM* setting evaluated in [this paper](https://arxiv.org/abs/1909.12297).  
+
+
+## Transformer in TrDiMP
+ If you are familiar with DiMP tracker as well as its original codes, you can easily follow our TrDiMP/TrSiam tracker by referring to the [transformer.py](models/target_classifier/transformer.py) and [dimpnet.py](models/tracking/dimpnet.py). 
+
 ## Training your own networks
 To train a custom network using the toolkit, the following components need to be specified in the train settings. For reference, see [atom.py](train_settings/bbreg/atom.py).  
 - Datasets: The datasets to be used for training. A number of standard tracking datasets are already available in ```dataset``` module.  

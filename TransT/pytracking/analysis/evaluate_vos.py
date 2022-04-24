@@ -10,7 +10,7 @@ from pytracking.analysis.plot_results import generate_formatted_report
 
 import pytracking.analysis.vos_utils as utils
 
-# Originally db_eval_sequence() in the davis challenge got10k_toolkit:
+# Originally db_eval_sequence() in the davis challenge toolkit:
 def evaluate_sequence(seq_name, segmentations, annotations, object_info, measure='J'):
     """
     Evaluate video sequence results.

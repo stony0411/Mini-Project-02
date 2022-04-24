@@ -6,7 +6,7 @@ from .coco import MSCOCO
 from .coco_seq import MSCOCOSeq
 from .youtubevos import YouTubeVOS
 from .davis import Davis
-# from .lvis import LVIS
+from .lvis import LVIS
 from .ecssd import ECSSD
 from .msra10k import MSRA10k
 from .hku_is import HKUIS

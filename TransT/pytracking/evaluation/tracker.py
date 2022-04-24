@@ -14,7 +14,6 @@ from ltr.data.bounding_box_utils import masks_to_bboxes
 from pytracking.evaluation.multi_object_wrapper import MultiObjectWrapper
 from pathlib import Path
 import torch
-import ltr.data.processing_utils as prutils
 
 
 _tracker_disp_colors = {1: (0, 255, 0), 2: (0, 0, 255), 3: (255, 0, 0),
@@ -213,7 +212,6 @@ class Tracker:
             info['previous_output'] = prev_output
 
             out = tracker.track(image, info)
-
             prev_output = OrderedDict(out)
             _store_outputs(out, {'time': time.time() - start_time})
 
@@ -602,8 +600,7 @@ class Tracker:
         tracker = self.create_tracker(params)
         tracker.initialize_features()
 
-        # import pytracking.evaluation.vot as vot
-        import pytracking.VOT.vot as vot
+        import pytracking.evaluation.vot as vot
 
         def _convert_anno_to_list(vot_anno):
             vot_anno = [vot_anno[0][0][0], vot_anno[0][0][1], vot_anno[0][1][0], vot_anno[0][1][1],

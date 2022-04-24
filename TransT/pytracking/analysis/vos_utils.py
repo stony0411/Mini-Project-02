@@ -30,7 +30,7 @@ def text_bargraph(values):
 # Adapted from DAVIS 2016 (Federico Perazzi)
 # ----------------------------------------------------------------------------
 
-# Originally db_eval_iou() in the davis challenge got10k_toolkit:
+# Originally db_eval_iou() in the davis challenge toolkit:
 def davis_jaccard_measure(fg_mask, gt_mask):
     """ Compute region similarity as the Jaccard Index.
 
@@ -66,7 +66,7 @@ def davis_jaccard_measure_torch(fg_mask, gt_mask):
         return (gt_mask & fg_mask).sum() / \
                (gt_mask | fg_mask).sum().float()
 
-# Originally db_eval_boundary() in the davis challenge got10k_toolkit:
+# Originally db_eval_boundary() in the davis challenge toolkit:
 def davis_f_measure(foreground_mask, gt_mask, bound_th=0.008):
     """
     Compute mean,recall and decay from per-frame evaluation.

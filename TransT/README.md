@@ -1,185 +1,69 @@
-# TransT - Transformer Tracking [CVPR2021]
-Official implementation of the TransT (CVPR2021) , including training code and trained models.
+# Transformer Meets Tracker: Exploiting Temporal Context for Robust Visual Tracking
+[Ning Wang](https://594422814.github.io), [Wengang Zhou](http://staff.ustc.edu.cn/~zhwg/index.html), [Jie Wang](https://miralab.ai/), and [Houqiang Li](http://staff.ustc.edu.cn/~lihq/English.html) 
 
-## News
-- :trophy: **TransT-M wins VOT2021 Real-Time Challenge with EAOMultistart 0.550! The code will be released soon** 
+### Accepted by **CVPR 2021 (Oral)**. [[Paper Link]](https://arxiv.org/pdf/2103.11681.pdf)
 
-## Tracker
-#### TransT ####
+This repository includes Python (PyTorch) implementation of the TrDiMP and TrSiam trackers, to appear in CVPR 2021.
 
-[**[Paper]**](https://arxiv.org/abs/2103.15436)
-[**[Models(google)]**](https://drive.google.com/drive/folders/1GVQV1GoW-ttDJRRqaVAtLUtubtgLhWCE?usp=sharing)
-[**[Models(baidu:iiau)]**](https://pan.baidu.com/s/1geI1cIv_AdLUd7qYKWIqzw)
-[**[Raw Results]**](https://drive.google.com/file/d/1FSUh6NSzu8H2HzectIwCbDEKZo8ZKUro/view?usp=sharing)
+![](../main/TransformerTracker.png)
 
-This work
-presents a attention-based feature fusion network,
-which effectively combines the template and search region
-features using attention. Specifically, the proposed
-method includes an ego-context augment module based on
-self-attention and a cross-feature augment module based on
-cross-attention. We present a Transformer tracking 
-(named TransT) method based on the Siamese-like feature extraction 
-backbone, the designed attention-based fusion mechanism, 
-and the classification and regression head.
+## Abstract
+In video object tracking, there exist rich temporal contexts among successive frames, which have been largely overlooked in existing trackers. In this work, we bridge the individual video frames and explore the temporal contexts across them via a transformer architecture for robust object tracking. Different from classic usage of the transformer in natural language processing tasks, we separate its encoder and decoder into two parallel branches and carefully design them within the Siamese-like tracking pipelines. The transformer encoder promotes the target templates via attention-based feature reinforcement, which benefits the high-quality tracking model generation. The transformer decoder propagates the tracking cues from previous templates to the current frame, which facilitates the object searching process. Our transformer-assisted tracking framework is neat and trained in an end-to-end manner. With the proposed transformer, a simple Siamese matching approach is able to outperform the current top-performing trackers. By combining our transformer with the recent discriminative tracking pipeline, our method sets several new state-of-the-art records on prevalent tracking benchmarks. 
 
-TransT is a very simple and efficient tracker, 
-without online update module, using the same model and hyparameter for all
-test sets.
-![TransT overview figure](pytracking/.figs/Framework.png)
-![ECA and CFA](pytracking/.figs/ECACFA.png)
+## Tracking Results and Pretrained Model
 
+**Tracking results:** the raw results of TrDiMP/TrSiam on 7 benchmarks including OTB, UAV, NFS, VOT2018, GOT-10k, TrackingNet, and LaSOT can be found [here](https://github.com/594422814/TransformerTrack/releases/download/results/Tracking_results.zip).
 
+**Pretrained model:** please download the [TrDiMP model](https://github.com/594422814/TransformerTrack/releases/download/model/trdimp_net.pth.tar) and put it in the ```pytracking/networks``` folder.
 
-## Results
-For VOT2020, we add a mask branch to generate mask, without any hyparameter-tuning. The code of the mask branch will be released soon.
+TrDiMP and TrSiam share the same model. The main difference between TrDiMP and TrSiam lies in the tracking model generation. TrSiam does not utilize the background information and simply crops the target/foreground area to generate the tracking model, which can be regarded as the initialization step of TrDiMP. 
 
-<table>
-  <tr>
-    <th>Model</th>
-    <th>LaSOT<br>AUC (%)</th>
-    <th>TrackingNet<br>AUC (%)</th>
-    <th>GOT-10k<br>AO (%)</th>
-    <th>VOT2020<br>EAO (%)</th>
-    <th>TNL2K<br>AUC (%)</th>
-    <th>OTB100<br>AUC (%)</th>
-    <th>NFS<br>AUC (%)</th>
-    <th>UAV123<br>AUC (%)</th>
-    <th>Speed<br></th>
-    <th>Params<br></th>
-  </tr>
-  <tr>
-    <td>TransT-N2</td>
-    <td>64.2</td>
-    <td>80.9</td>
-    <td>69.9</td>
-    <td>-</td>
-    <td>-</td>
-    <td>68.1</td>
-    <td>65.7</td>
-    <td>67.0</td>
-    <td>70fps</td>
-    <td>16.7M</td>
-  </tr>
-  <tr>
-    <td>TransT-N4</td>
-    <td>64.9</td>
-    <td>81.4</td>
-    <td>72.3</td>
-    <td>49.5</td>    
-    <td>51.0</td>
-    <td>69.4</td>
-    <td>65.7</td>
-    <td>69.1</td>
-    <td>50fps</td>
-    <td>23.0M</td>
-  </tr>
-</table>
+## Environment Setup
 
-## Installation
-This document contains detailed instructions for installing the necessary dependencied for **TransT**. The instructions 
-have been tested on Ubuntu 18.04 system.
-
+#### Clone the GIT repository.  
+```bash
+git clone https://github.com/594422814/TransformerTrack.git
+```
+#### Clone the submodules.  
+In the repository directory, run the commands:  
+```bash
+git submodule update --init  
+```  
 #### Install dependencies
-* Create and activate a conda environment 
-    ```bash
-    conda create -n transt python=3.7
-    conda activate transt
-    ```  
-* Install PyTorch
-    ```bash
-    conda install -c pytorch pytorch=1.5 torchvision=0.6.1 cudatoolkit=10.2
-    ```  
+Run the installation script to install all the dependencies. You need to provide the conda install path (e.g. ~/anaconda3) and the name for the created conda environment (here ```pytracking```).  
+```bash
+bash install.sh conda_install_path pytracking
+```  
+This script will also download the default networks and set-up the environment.  
 
-* Install other packages
-    ```bash
-    conda install matplotlib pandas tqdm
-    pip install opencv-python tb-nightly visdom scikit-image tikzplotlib gdown
-    conda install cython scipy
-    sudo apt-get install libturbojpeg
-    pip install pycocotools jpeg4py
-    pip install wget yacs
-    pip install shapely==1.6.4.post2
-    ```  
-* Setup the environment                                                                                                 
-Create the default environment setting files.
+**Note:** The install script has been tested on an Ubuntu 18.04 system. In case of issues, check the [detailed installation instructions](INSTALL.md). 
 
-    ```bash
-    # Change directory to <PATH_of_TransT>
-    cd TransT
-    
-    # Environment settings for pytracking. Saved at pytracking/evaluation/local.py
-    python -c "from pytracking.evaluation.environment import create_default_local_file; create_default_local_file()"
-    
-    # Environment settings for ltr. Saved at ltr/admin/local.py
-    python -c "from ltr.admin.environment import create_default_local_file; create_default_local_file()"
-    ```
-You can modify these files to set the paths to datasets, results paths etc.
-* Add the project path to environment variables  
-Open ~/.bashrc, and add the following line to the end. Note to change <path_of_TransT> to your real path.
-    ```
-    export PYTHONPATH=<path_of_TransT>:$PYTHONPATH
-    ```
-* Download the pre-trained networks   
-Download the network for [TransT](https://drive.google.com/drive/folders/1GVQV1GoW-ttDJRRqaVAtLUtubtgLhWCE?usp=sharing)
-and put it in the directory set by "network_path" in "pytracking/evaluation/local.py". By default, it is set to 
-pytracking/networks.
+Our code is based on the PyTracking framework. For more details, please refer to [PyTracking](https://github.com/visionml/pytracking).
 
-## Quick Start
-#### Traning
-* Modify [local.py](ltr/admin/local.py) to set the paths to datasets, results paths etc.
-* Runing the following commands to train the TransT. You can customize some parameters by modifying [transt.py](ltr/train_settings/transt/transt.py)
-    ```bash
-    conda activate transt
-    cd TransT/ltr
-    python run_training.py transt transt
-    ```  
+## Training the TrDiMP/TrSiam Model
 
-#### Evaluation
+Please refer to the [README](https://github.com/594422814/TransformerTrack/blob/main/ltr/README.md) in the ```ltr``` folder.
 
-* We integrated [PySOT](https://github.com/STVIR/pysot) for evaluation. You can download json files in [PySOT](https://github.com/STVIR/pysot) or [here](https://drive.google.com/file/d/1PItNIOkui0iGCRglgsZPZF1-hkmj7vyv/view?usp=sharing).
-    
-    You need to specify the path of the model and dataset in the [test.py](pysot_toolkit/test.py).
-    ```python
-    net_path = '/path_to_model' #Absolute path of the model
-    dataset_root= '/path_to_datasets' #Absolute path of the datasets
-    ```  
-    Then run the following commands.
-    ```bash
-    conda activate TransT
-    cd TransT
-    python -u pysot_toolkit/test.py --dataset <name of dataset> --name 'transt' #test tracker #test tracker
-    python pysot_toolkit/eval.py --tracker_path results/ --dataset <name of dataset> --num 1 --tracker_prefix 'transt' #eval tracker
-    ```  
-    The testing results will in the current directory(results/dataset/transt/)
-    
-* You can also use [pytracking](pytracking) to test and evaluate tracker. 
-The results might be slightly different with [PySOT](https://github.com/STVIR/pysot) due to the slight difference in implementation (pytracking saves results as integers, pysot toolkit saves the results as decimals).
+## Testing the TrDiMP/TrSiam Tracker
 
-#### Getting Help
-If you meet problem, please try searching our Github issues, if you can't find solutions, feel free to open a new issue.
-* `ImportError: cannot import name region`
+Please refer to the [README](https://github.com/594422814/TransformerTrack/blob/main/pytracking/README.md) in the ```pytracking``` folder. 
+As shown in ```pytracking/README.md```, you can either use this PyTracking toolkit or GOT-10k toolkit to reproduce the tracking results.
 
-Solution: You can just delete `from pysot_toolkit.toolkit.utils.region import vot_overlap, vot_float2str` in [test.py](pysot_toolkit/test.py) if you don't test VOT2019/18/16.
-You can also build `region` by `python setup.py build_ext --inplace` in [pysot_toolkit](pysot_toolkit).
 
 ## Citation
-
+If you find this work useful for your research, please consider citing our work:
 ```
-@inproceedings{TransT,
-title={Transformer Tracking},
-author={Chen, Xin and Yan, Bin and Zhu, Jiawen and Wang, Dong and Yang, Xiaoyun and Lu, Huchuan},
-booktitle={CVPR},
-year={2021}
+@inproceedings{Wang_2021_Transformer,
+    title={Transformer Meets Tracker: Exploiting Temporal Context for Robust Visual Tracking},
+    author={Wang, Ning and Zhou, Wengang and Wang, Jie and Li, Houqiang},
+    booktitle={The IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year={2021}
 }
-```  
+```
 
-## Acknowledgement
-This is a modified version of the python framework [PyTracking](https://github.com/visionml/pytracking) based on **Pytorch**, 
-also borrowing from [PySOT](https://github.com/STVIR/pysot) and [detr](https://github.com/facebookresearch/detr). 
-We would like to thank their authors for providing great frameworks and toolkits.
+## Acknowledgment
+Our transformer-assisted tracker is based on [PyTracking](https://github.com/visionml/pytracking). We sincerely thank the authors Martin Danelljan and Goutam Bhat for providing this great framework.
 
 ## Contact
-* Xin Chen (email:chenxin3131@mail.dlut.edu.cn)
+If you have any questions, please feel free to contact wn6149@mail.ustc.edu.cn
 
-    Feel free to contact me if you have additional questions. 

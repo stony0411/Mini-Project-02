@@ -13,7 +13,7 @@ class TrackingNetDataset(BaseDataset):
         ECCV, 2018
         https://ivul.kaust.edu.sa/Documents/Publications/2018/TrackingNet%20A%20Large%20Scale%20Dataset%20and%20Benchmark%20for%20Object%20Tracking%20in%20the%20Wild.pdf
 
-    Download the dataset using the got10k_toolkit https://github.com/SilvioGiancola/TrackingNet-devkit.
+    Download the dataset using the toolkit https://github.com/SilvioGiancola/TrackingNet-devkit.
     """
     def __init__(self):
         super().__init__()

@@ -97,7 +97,8 @@ def sample_patch(im: torch.Tensor, pos: torch.Tensor, sample_sz: torch.Tensor, o
     # Do downsampling
     if df > 1:
         os = posl % df              # offset
-        posl = (posl - os) / df     # new position
+        # posl = (posl - os) / df     # new position
+        posl = torch.floor_divide(posl - os, df)     # new position
         im2 = im[..., os[0].item()::df, os[1].item()::df]   # downsample
     else:
         im2 = im
@@ -106,8 +107,10 @@ def sample_patch(im: torch.Tensor, pos: torch.Tensor, sample_sz: torch.Tensor, o
     szl = torch.max(sz.round(), torch.Tensor([2])).long()
 
     # Extract top and bottom coordinates
-    tl = posl - (szl - 1)/2
-    br = posl + szl/2 + 1
+    # tl = posl - (szl - 1)//2
+    # br = posl + szl//2 + 1
+    tl = posl - torch.floor_divide(szl - 1, 2)
+    br = posl + torch.floor_divide(szl, 2) + 1
 
     # Shift the crop to inside
     if mode == 'inside' or mode == 'inside_major':

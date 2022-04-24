@@ -41,7 +41,7 @@ class TrackingNet(BaseVideoDataset):
         ECCV, 2018
         https://ivul.kaust.edu.sa/Documents/Publications/2018/TrackingNet%20A%20Large%20Scale%20Dataset%20and%20Benchmark%20for%20Object%20Tracking%20in%20the%20Wild.pdf
 
-    Download the dataset using the got10k_toolkit https://github.com/SilvioGiancola/TrackingNet-devkit.
+    Download the dataset using the toolkit https://github.com/SilvioGiancola/TrackingNet-devkit.
     """
     def __init__(self, root=None, image_loader=jpeg4py_loader, set_ids=None, data_fraction=None):
         """
@@ -118,7 +118,7 @@ class TrackingNet(BaseVideoDataset):
     def _get_frame(self, seq_id, frame_id):
         set_id = self.sequence_list[seq_id][0]
         vid_name = self.sequence_list[seq_id][1]
-        frame_path = os.path.join(self.root, "TRAIN_" + str(set_id), "frames", vid_name, str(frame_id) + ".jpg")
+        frame_path = os.path.join(self.root, "TRAIN_" + str(set_id), "frames", vid_name, str(frame_id) + ".jpg")   #### frames -> zips ?
         return self.image_loader(frame_path)
 
     def _get_class(self, seq_id):
@@ -140,9 +140,9 @@ class TrackingNet(BaseVideoDataset):
         for key, value in anno.items():
             anno_frames[key] = [value[f_id, ...].clone() for f_id in frame_ids]
 
-        obj_class = self._get_class(seq_id)
+        # obj_class = self._get_class(seq_id)
 
-        object_meta = OrderedDict({'object_class_name': obj_class,
+        object_meta = OrderedDict({'object_class_name': None,  # obj_class
                                    'motion_class': None,
                                    'major_class': None,
                                    'root_class': None,

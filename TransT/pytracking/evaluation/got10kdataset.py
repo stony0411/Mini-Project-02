@@ -39,7 +39,7 @@ class GOT10KDataset(BaseDataset):
         frame_list.sort(key=lambda f: int(f[:-4]))
         frames_list = [os.path.join(frames_path, frame) for frame in frame_list]
 
-        return Sequence(sequence_name, frames_list, 'toolkit', ground_truth_rect.reshape(-1, 4))
+        return Sequence(sequence_name, frames_list, 'got10k', ground_truth_rect.reshape(-1, 4))
 
     def __len__(self):
         return len(self.sequence_list)

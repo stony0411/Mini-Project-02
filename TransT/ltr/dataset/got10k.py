@@ -42,7 +42,7 @@ class Got10k(BaseVideoDataset):
         # all folders inside the root
         self.sequence_list = self._get_sequence_list()
 
-        # seq_id is the index of the folder inside the toolkit root path
+        # seq_id is the index of the folder inside the got10k root path
         if split is not None:
             if seq_ids is not None:
                 raise ValueError('Cannot set both split_name and seq_ids.')
@@ -55,8 +55,6 @@ class Got10k(BaseVideoDataset):
                 file_path = os.path.join(ltr_path, 'data_specs', 'got10k_vot_train_split.txt')
             elif split == 'votval':
                 file_path = os.path.join(ltr_path, 'data_specs', 'got10k_vot_val_split.txt')
-            elif split == 'all':
-                file_path = os.path.join(ltr_path, 'data_specs', 'got10k_all.txt')
             else:
                 raise ValueError('Unknown split name.')
             seq_ids = pandas.read_csv(file_path, header=None, squeeze=True, dtype=np.int64).values.tolist()
@@ -75,7 +73,7 @@ class Got10k(BaseVideoDataset):
         self.class_list.sort()
 
     def get_name(self):
-        return 'toolkit'
+        return 'got10k'
 
     def has_class_info(self):
         return True

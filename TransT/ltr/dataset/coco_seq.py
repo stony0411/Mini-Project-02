@@ -46,8 +46,11 @@ class MSCOCOSeq(BaseVideoDataset):
         root = env_settings().coco_dir if root is None else root
         super().__init__('COCO', root, image_loader)
 
-        self.img_pth = os.path.join(root, 'images/{}{}/'.format(split, version))
-        self.anno_path = os.path.join(root, 'annotations/instances_{}{}.json'.format(split, version))
+        # self.img_pth = os.path.join(root, 'images/{}{}/'.format(split, version))
+        # self.anno_path = os.path.join(root, 'annotations/instances_{}{}.json'.format(split, version))
+
+        self.img_pth = os.path.join(root, 'train2014/')
+        self.anno_path = os.path.join(root, 'annotations/instances_train2014.json')
 
         # Load the COCO set.
         self.coco_set = COCO(self.anno_path)

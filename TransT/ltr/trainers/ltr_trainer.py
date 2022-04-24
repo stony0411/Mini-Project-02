@@ -50,6 +50,7 @@ class LTRTrainer(BaseTrainer):
         self._init_timing()
 
         for i, data in enumerate(loader, 1):
+            # get inputs
             if self.move_data_to_gpu:
                 data = data.to(self.device)
 
@@ -66,7 +67,7 @@ class LTRTrainer(BaseTrainer):
                 self.optimizer.step()
 
             # update statistics
-            batch_size = data['search_images'].shape[loader.stack_dim]
+            batch_size = data['train_images'].shape[loader.stack_dim]
             self._update_stats(stats, batch_size, loader)
 
             # print statistics

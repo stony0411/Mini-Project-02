@@ -6,10 +6,10 @@ import multiprocessing
 import cv2 as cv
 import torch.backends.cudnn
 
-
 env_path = os.path.join(os.path.dirname(__file__), '..')
 if env_path not in sys.path:
     sys.path.append(env_path)
+
 import ltr.admin.settings as ws_settings
 
 

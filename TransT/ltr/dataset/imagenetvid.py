@@ -39,7 +39,7 @@ class ImagenetVID(BaseVideoDataset):
                                 which cover complete image.
         """
         root = env_settings().imagenet_dir if root is None else root
-        super().__init__('imagenetvid', root, image_loader)
+        super().__init__(root, image_loader)
 
         cache_file = os.path.join(root, 'cache.json')
         if os.path.isfile(cache_file):

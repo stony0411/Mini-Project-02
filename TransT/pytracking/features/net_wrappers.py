@@ -1,6 +1,5 @@
 import torch
 from pytracking.utils.loading import load_network
-from util.misc import (NestedTensor, nested_tensor_from_tensor)
 
 
 class NetWrapper:
@@ -69,8 +68,8 @@ class NetWithBackbone(NetWrapper):
 
         return im
 
-    def template(self, z):
-        self.net.template(z)
-
-    def track(self, image):
-        return self.net.track(image)
+    def extract_backbone(self, im: torch.Tensor):
+        """Extract backbone features from the network.
+        Expects a float tensor image with pixel range [0, 255]."""
+        im = self.preprocess_image(im)
+        return self.net.extract_backbone_features(im)

@@ -5,7 +5,7 @@ from pytracking.evaluation.environment import env_settings
 
 
 def pack_got10k_results(tracker_name, param_name, output_name):
-    """ Packs toolkit results into a zip folder which can be directly uploaded to the evaluation server. The packed
+    """ Packs got10k results into a zip folder which can be directly uploaded to the evaluation server. The packed
     file is saved in the folder env_settings().got_packed_results_path
 
     args:
@@ -26,7 +26,7 @@ def pack_got10k_results(tracker_name, param_name, output_name):
         if not os.path.exists(seq_output_path):
             os.makedirs(seq_output_path)
 
-        for run_id in range(1):
+        for run_id in range(3):
             res = np.loadtxt('{}/{}/{}_{:03d}/{}.txt'.format(results_path, tracker_name, param_name, run_id, seq_name), dtype=np.float64)
             times = np.loadtxt(
                 '{}/{}/{}_{:03d}/{}_time.txt'.format(results_path, tracker_name, param_name, run_id, seq_name),
@@ -40,9 +40,3 @@ def pack_got10k_results(tracker_name, param_name, output_name):
 
     # Remove raw text files
     shutil.rmtree(output_path)
-
-def main():
-    pack_got10k_results('transt', 'transt50', 'transt')
-
-if __name__ == '__main__':
-    main()
