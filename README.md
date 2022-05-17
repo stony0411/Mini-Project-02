@@ -49,3 +49,10 @@ transtrack tracking results:
 
 ![](../main/transtrack.png)
 
+# Other scripts
+Preprocess_Dataset.ipynb
+Preprocess_Dataset_tcoco.ipynb
+Those are the scripts to reform UAV123 dataset
+
+Generate_Graph.ipynb is used to generate graphs.
+
