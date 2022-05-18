@@ -1,5 +1,5 @@
 # Mini-Project-02/03 for ECE 7123 DeepLearning
-In this project, we are going to implement two Visual object Tracker using Transformer. 
+In this project, we are going to implement Visual object Tracker using Transformer. 
 
 **Stark** folder is the script from "https://github.com/researchmm/Stark". paper:[[Learning Spatio-Temporal Transformer for Visual Tracking]](https://openaccess.thecvf.com/content/ICCV2021/papers/Yan_Learning_Spatio-Temporal_Transformer_for_Visual_Tracking_ICCV_2021_paper.pdf)
 
