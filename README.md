@@ -45,14 +45,54 @@ Stark tracking result:
 
 ![](../main/stark.png)
 
-transtrack tracking results:
+# Train
 
-![](../main/transtrack.png)
+## 1. set project path
+Run the following command to set paths for this project
+
+ ```python tracking/create_default_local_file.py --workspace_dir . --data_dir ./data --save_dir .```
+
+Then we can modify the paths of datasets by these two files.
+
+```lib/train/admin/local.py  # paths about training ; ```
+```lib/test/evaluation/local.py  # paths about testing```
+
+## 2. Change the baseline
+
+[baseline](https://github.com/stony0411/Mini-Project-02/tree/main/Stark/experiments/stark_s)
+
+MAX_SAMPLE_INTERVAL: 200;
+
+TRAIN:
+    DATASETS_NAME:
+    DATASETS_RATIO: ;
+
+BATCH_SIZE: 16;
+
+EPOCH: 50;
+
+OPTIMIZER: ADAMW;
+
+SCHEDULER:  TYPE: step ; DECAY_RATE: 0.1;
+
+NUM_WORKER: 8;
+
+## 3. Train command 
+
+```!python /content/gdrive/MyDrive/Stark/tracking/train.py --script stark_st --config baseline --save_dir . --mode single```
+
+## 4. Test command
+
+```python /content/gdrive/MyDrive/Stark/tracking/test.py stark_st baseline --dataset data --threads 32```
+
 
 # Other scripts
-Preprocess_Dataset.ipynb
-Preprocess_Dataset_tcoco.ipynb
 Those are the scripts to reform UAV123 dataset
 
-Generate_Graph.ipynb is used to generate graphs.
+[Dataset_process](https://github.com/stony0411/Mini-Project-02/blob/main/Preprocess_Dataset.ipynb)
+
+[tococo](https://github.com/stony0411/Mini-Project-02/blob/main/Preprocess_Dataset_tcoco.ipynb)
+
+[Annotation tool](https://github.com/stony0411/Mini-Project-02/tree/main/DarkLabel2.4)
+
 
