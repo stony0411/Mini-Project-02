@@ -90,6 +90,7 @@ NUM_WORKER: 8;
 ![](../main/plot.png)
 ![](../main/Success.png)
 ![](../main/Precision.png)
+![](../main/class.png)
 
 
 
