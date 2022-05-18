@@ -85,6 +85,14 @@ NUM_WORKER: 8;
 
 ```python /content/gdrive/MyDrive/Stark/tracking/test.py stark_st baseline --dataset data --threads 32```
 
+# Results and evaluation
+
+![](../main/plot.png)
+![](../main/Success.png)
+![](../main/Precision.png)
+
+
+
 
 # Other scripts
 Those are the scripts to reform UAV123 dataset
